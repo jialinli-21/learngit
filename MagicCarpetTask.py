@@ -95,9 +95,9 @@ isFirst = True #第一次左粉右蓝，下一次实验反转    （偶数次左
         tex3.draw()
         win1.flip()
         instrText2 = 'gold coin' or 'sorry'
-        r1 = random.random()      #A精灵给回报的概率
-        r2 = random.random()     #B精灵给回报的概率
-        r0 = random.random()     #被试此时的概率
+        ReProA = random.random()      #A精灵给回报的概率
+        ReProB = random.random()     #B精灵给回报的概率
+        ReProP = random.random()     #被试此时的概率
     #用户第二次输入
         kb.start()
         kb.waitKeys(maxWait = 2, keyList=['a','b'])
@@ -173,9 +173,9 @@ isFirst = True #第一次左粉右蓝，下一次实验反转    （偶数次左
         tex3.draw()
         win1.flip()
         instrText4 = 'gold coin' or 'sorry'
-        r1 = random.random()      #A精灵给回报的概率
-        r2 = random.random()     #B精灵给回报的概率
-        r0 = random.random()     #被试此时的概率
+        ReProA = random.random()      #A精灵给回报的概率
+        ReProB = random.random()     #B精灵给回报的概率
+        ReProP = random.random()     #被试此时的概率
     #用户第二次输入
         kb.start()
         kb.waitKeys(maxWait = 2, keyList=['a','b'])
