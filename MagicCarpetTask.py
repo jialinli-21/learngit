@@ -26,7 +26,6 @@ rewardDir = [0,1]  #0, 无reward；1，有reward
 EnTrialsPerCon = 3 #how many exercise trials per condition
 MnTrialsPerCon = 2 #how many main trials per condition
 
-
 EnTrials = EnTrialsPerCon*len(mounDir)*len(transDir)*len(elfDir)*len(rewardDir)
 MnTrials = MnTrialsPerCon*len(mounDir)*len(transDir)*len(elfDir)*len(rewardDir)
 stimList = []
@@ -73,13 +72,17 @@ for trial in Etrials:  #练习开始,trialHandler
         if keys[0].name == 'left':      #pink mountain
             if (r>= 0.3) and isFirst:
                 instrText1 = 'pink mountain'
+                moun = 0
             else:
                 instrText1 = 'blue mountain'
+                moun = 1
         if keys[0].name == 'right':         #blue mountain
             if (r>= 0.3) and isFirst:
                 instrText1 = 'blue mountain'
+                moun = 1
             else:
                 instrText1 = 'pink moutain'
+                moun = 0
     #如果拿不到key,退出             如何退回到上一个循环？
     if not keys:
         core.quit()
@@ -91,7 +94,7 @@ for trial in Etrials:  #练习开始,trialHandler
 
 #second stage
 #呈现图片刺激（暂时文字刺激代替)，选择A精灵还是B精灵
-    tex3 = visual.TextStim(win=win1, text='press a or b to choose elf',color=(-1,0,1))
+    tex3 = visual.TextStim(win=win1, text='press left or right to choose elf',color=(-1,0,1))
     tex3.draw()
     win1.flip()
     instrText2 = 'gold coin' or 'sorry'
@@ -100,18 +103,22 @@ for trial in Etrials:  #练习开始,trialHandler
     ReProP = random.random()     #被试此时的概率
 #用户第二次输入
     kb.start()
-    kb.waitKeys(maxWait = 2, keyList=['a','b'])
+    kb.waitKeys(maxWait = 2, keyList=['left','right'])
     kb.stop()
 #开始判断
     if keys:
-        if (keys[0].name == 'a') and (r0<r1):
+        if (keys[0].name == 'left') and (r0<r1):  #A elf
             instrText2 = 'gold coin'
+            reward = 1
         else :
             instrText2 = 'sorry'
-        if (keys[0].name == 'b') and (r0<r2):
+            reward = 0
+        if (keys[0].name == 'right') and (r0<r2):#B elf
             instrText2 = 'gold coin'
+            reward = 1
         else :
             instrText2 = 'sorry'
+            reward = 0
     #如果拿不到key，退出
     if not keys:
         core.quit()
@@ -122,10 +129,10 @@ for trial in Etrials:  #练习开始,trialHandler
     core.wait(1)       #反馈时间
     isFirst = not isFirst    #reverse
     #save data in this trial
-    trials.addData('moun', 0 if instrText1 == 'pink mountain' else 1)
+    trials.addData('moun', 0 if (moun = 0) else 1)
     trials.addData('trans', 0 if r>= 0.3 else 1)
-    trials.addData('elf', 0 if keys[0].name == 'a' else 'b')
-    trials.addData('reward', 0 if instrText1 == 'sorry' else 1)
+    trials.addData('elf', 0 if keys[0].name == 'left' else 'right')
+    trials.addData('reward', 0 if (reward = 0) else 1)
 
 #  =========== main task loop ========
 #呈现魔毯图片刺激（先用文字刺激代替）
@@ -146,13 +153,17 @@ for trial in Mtrials:  #练习开始,trialHandler
         if keys[0].name == 'left':      #pink mountain
             if (r>= 0.3) and isFirst:
                 instrText3= 'pink mountain'
+                moun = 0
             else:
                 instrText3= 'blue mountain'
+                moun = 1
         if keys[0].name == 'right':         #blue mountain
             if (r>= 0.3) and isFirst:
                 instrText3 = 'blue mountain'
+                moun = 1
             else:
                 instrText3 = 'pink moutain'
+                moun = 0
     #如果拿不到key,退出             如何退回到上一个循环？
     if not keys:
         core.quit()
@@ -161,7 +172,7 @@ for trial in Mtrials:  #练习开始,trialHandler
     tex5.draw()
     win1.flip()
     core.wait(3)
-#小睡时间
+#小睡时间take a nap
     tex6 = visual.TextStim(win = win1, text = 'take a nap',color = (-1,0,1))
     tex6.draw()
     win1.flip()
@@ -169,7 +180,7 @@ for trial in Mtrials:  #练习开始,trialHandler
     
 #second stage
 #呈现图片刺激（暂时文字刺激代替)，选择A精灵还是B精灵
-    tex3 = visual.TextStim(win=win1, text='press a or b to choose elf',color=(-1,0,1))
+    tex3 = visual.TextStim(win=win1, text='press left or right to choose elf',color=(-1,0,1))
     tex3.draw()
     win1.flip()
     instrText4 = 'gold coin' or 'sorry'
@@ -182,14 +193,18 @@ for trial in Mtrials:  #练习开始,trialHandler
     kb.stop()
 #开始判断
     if keys:
-        if (keys[0].name == 'a') and (r0<r1):
+        if (keys[0].name == 'left') and (r0<r1):
             instrText4 = 'gold coin'
+            reward = 1
         else :
             instrText4 = 'sorry'
-        if (keys[0].name == 'b') and (r0<r2):
+            reward = 0
+        if (keys[0].name == 'right') and (r0<r2):
             instrText4 = 'gold coin'
+            reward = 1
         else :
             instrText4 = 'sorry'
+            reward = 0
     #如果拿不到key，退出
     if not keys:
         core.quit()
@@ -198,12 +213,19 @@ for trial in Mtrials:  #练习开始,trialHandler
     tex7.draw()
     win1.flip()
     core.wait(1)       #反馈时间
+#空白刺激
+    tex8 = visual.TextStim(win = win1, 'blank',color=(-1,0,1))
+    tex8.draw()
+    win1.flip()
+    core.wait(1)
     isFirst = not isFirst    #reverse
+    
+    
     #save data in this trial
-    trials.addData('moun', 0 if instrText3 == 'pink mountain' else 1)
+    trials.addData('moun', 0 if (moun = 0) else 1)
     trials.addData('trans', 0 if r>= 0.3 else 1)
-    trials.addData('elf', 0 if keys[0].name == 'a' else 'b')
-    trials.addData('reward', 0 if instrText4 == 'sorry' else 1)
+    trials.addData('elf', 0 if keys[0].name == 'left' else 'right')
+    trials.addData('reward', 0 if (reward = 0) else 1)
 
 
 # save data to csv
