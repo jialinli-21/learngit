@@ -27,7 +27,8 @@ stimList = []
 for sp in spDir:
     for pt in ptDir:
         for cl in clDir:
-            stimList.append({'ship':sp,'planet':pt,'crystal':cl})
+            for re in reDir:
+                stimList.append({'ship':sp,'planet':pt,'crystal':cl,'reward':re})
 trials = data.TrialHandler(stimList, nTrialsPerCon)
 
 #openwindow
@@ -85,7 +86,7 @@ for trial in trials:#use trialHandler
     win1.flip()
     core.wait(2)
     #此时呈现x或y的选择刺激
-    tex1 = visual.TextStim(win = win1, 'press left or right to choose spaceship',color = (-1,0,1))
+    tex1 = visual.TextStim(win = win1, text = 'press left or right to choose spaceship', color=(-1,0,1))
     tex1.draw()
     win1.flip()
     core.wait(2)
